@@ -1,0 +1,2440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Vista Restaurant - Fine Dining Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Professional Color Palette */
+            --primary-gold: #D4AF37;
+            --primary-gold-dark: #B8941F;
+            --primary-gold-light: #E6C866;
+            --accent-burgundy: #8B0000;
+            --accent-burgundy-light: #A52A2A;
+            
+            /* Dark Mode */
+            --dark-bg: #0A0A0A;
+            --dark-bg-secondary: #1A1A1A;
+            --dark-bg-tertiary: #2A2A2A;
+            --dark-text: #F5F5F5;
+            --dark-text-secondary: #CCCCCC;
+            --dark-border: #333333;
+            
+            /* Light Mode */
+            --light-bg: #FEFEFE;
+            --light-bg-secondary: #F8F8F8;
+            --light-bg-tertiary: #F0F0F0;
+            --light-text: #1A1A1A;
+            --light-text-secondary: #666666;
+            --light-border: #E0E0E0;
+            
+            /* Current theme (default dark) */
+            --current-bg: var(--dark-bg);
+            --current-bg-secondary: var(--dark-bg-secondary);
+            --current-bg-tertiary: var(--dark-bg-tertiary);
+            --current-text: var(--dark-text);
+            --current-text-secondary: var(--dark-text-secondary);
+            --current-border: var(--dark-border);
+            
+            /* Shadows */
+            --shadow-light: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-medium: 0 4px 20px rgba(0,0,0,0.15);
+            --shadow-heavy: 0 8px 30px rgba(0,0,0,0.2);
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-medium: 0.3s ease;
+            --transition-slow: 0.6s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--current-bg);
+            color: var(--current-text);
+            line-height: 1.6;
+            cursor: none;
+            overflow-x: hidden;
+            transition: all var(--transition-slow);
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+        }
+
+        /* Enhanced Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: all var(--transition-fast);
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hover {
+            width: 40px;
+            height: 40px;
+            border-color: var(--primary-gold-light);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .cursor.click {
+            width: 15px;
+            height: 15px;
+            background: var(--primary-gold);
+        }
+
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background-color: var(--primary-gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+        }
+
+        /* Dynamic Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: all var(--transition-medium);
+            transform: translateY(0);
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: var(--shadow-medium);
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all var(--transition-medium);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 20px var(--primary-gold);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--current-text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-medium);
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: width var(--transition-medium);
+        }
+
+        .nav-menu a:hover::after {
+            width: 80%;
+        }
+
+        /* Enhanced Mode Toggle */
+        .mode-toggle {
+            background: var(--current-bg-secondary);
+            border: 1px solid var(--current-border);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-toggle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            transition: all var(--transition-medium);
+            transform: translate(-50%, -50%);
+        }
+
+        .mode-toggle:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mode-toggle:hover {
+            color: white;
+            transform: rotate(180deg);
+        }
+
+        .mode-toggle i {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Dynamic Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(10,10,10,0.7), rgba(139,0,0,0.3));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%23000" width="1920" height="1080"/><circle cx="960" cy="540" r="300" fill="%23D4AF37" opacity="0.1"/></svg>');
+            background-size: cover;
+            animation: backgroundShift 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--primary-gold-light);
+            margin-bottom: 1rem;
+            font-weight: 300;
+            overflow: hidden;
+            border-right: 2px solid var(--primary-gold);
+            white-space: nowrap;
+            animation: typewriter 3s steps(20) 1s forwards, blink 1s infinite;
+            width: 0;
+        }
+
+        @keyframes typewriter {
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeIn 2s ease-out 2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 2s ease-out 2.5s both;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-gold);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all var(--transition-medium);
+            box-shadow: var(--shadow-medium);
+            border: 2px solid var(--primary-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transition: all var(--transition-medium);
+            transform: translate(-50%, -50%);
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: var(--dark-bg);
+        }
+
+        /* Floating Geometric Shapes */
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: floatShape 15s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 5s;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 10s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(120deg); }
+            66% { transform: translateY(15px) rotate(240deg); }
+        }
+
+        /* Enhanced Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--current-text);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--primary-gold);
+            transition: width 1s ease;
+        }
+
+        .section-title.animate::after {
+            width: 80px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--current-text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .section-subtitle.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Interactive About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.8s ease;
+        }
+
+        .about-text p.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+            transform: scale(0.9);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .about-image.animate {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: transform var(--transition-slow);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary-gold), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+            z-index: 1;
+        }
+
+        .about-image:hover::before {
+            opacity: 0.3;
+        }
+
+        /* Animated Stats Section */
+        .stats {
+            background: var(--current-bg-secondary);
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.05), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            transition: transform var(--transition-medium);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            display: block;
+            transition: all var(--transition-medium);
+        }
+
+        .stat-number.counting {
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--current-text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        /* Interactive Menu Section */
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .menu-category-button {
+            background: var(--current-bg-secondary);
+            color: var(--current-text);
+            border: 2px solid var(--current-border);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-category-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            transition: all var(--transition-medium);
+            transform: translate(-50%, -50%);
+        }
+
+        .menu-category-button:hover::before,
+        .menu-category-button.active::before {
+            width: 200px;
+            height: 200px;
+        }
+
+        .menu-category-button:hover,
+        .menu-category-button.active {
+            color: white;
+            border-color: var(--primary-gold);
+            transform: translateY(-3px);
+        }
+
+        .menu-category-button span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: var(--current-bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all var(--transition-medium);
+            box-shadow: var(--shadow-light);
+            transform: translateY(20px);
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .menu-item.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .menu-item-image {
+            height: 250px;
+            background: linear-gradient(45deg, var(--primary-gold), var(--accent-burgundy));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            background-size: 20px 20px;
+            animation: movePattern 10s linear infinite;
+        }
+
+        @keyframes movePattern {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(20px) translateY(20px); }
+        }
+
+        .menu-item-content {
+            padding: 2rem;
+        }
+
+        .menu-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--current-text);
+            transition: color var(--transition-medium);
+        }
+
+        .menu-item:hover h3 {
+            color: var(--primary-gold);
+        }
+
+        .menu-item-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            transition: all var(--transition-medium);
+        }
+
+        .menu-item:hover .menu-item-price {
+            transform: scale(1.1);
+        }
+
+        .menu-item p {
+            color: var(--current-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Interactive Testimonials - Moving Bar */
+        .testimonials {
+            background: var(--current-bg-secondary);
+            padding: 6rem 2rem;
+            margin: 4rem 0;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .testimonials-track {
+            display: flex;
+            animation: slideTestimonials 20s linear infinite;
+            gap: 2rem;
+            width: calc(300% + 4rem); /* 3 testimonials + gaps */
+        }
+
+        .testimonials-track:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes slideTestimonials {
+            0% {
+                transform: translateX(0);
+            }
+            33.33% {
+                transform: translateX(calc(-33.33% - 0.67rem));
+            }
+            66.66% {
+                transform: translateX(calc(-66.66% - 1.33rem));
+            }
+            100% {
+                transform: translateX(calc(-100% - 2rem));
+            }
+        }
+
+        .testimonial {
+            background: var(--current-bg);
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            min-width: calc(33.33% - 1.33rem);
+            flex-shrink: 0;
+            transition: all var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.05));
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+        }
+
+        .testimonial:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .testimonial:hover::before {
+            opacity: 1;
+        }
+
+        .testimonial-stars {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-gold);
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Progress indicator */
+        .testimonials-progress {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--current-border);
+            animation: progressDot 20s linear infinite;
+        }
+
+        .progress-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .progress-dot:nth-child(2) {
+            animation-delay: 6.67s;
+        }
+
+        .progress-dot:nth-child(3) {
+            animation-delay: 13.33s;
+        }
+
+        @keyframes progressDot {
+            0%, 30% {
+                background: var(--primary-gold);
+                transform: scale(1.3);
+            }
+            33.33%, 100% {
+                background: var(--current-border);
+                transform: scale(1);
+            }
+        }
+
+        /* Enhanced Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: var(--current-bg-secondary);
+            padding: 3rem;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(212, 175, 55, 0.05));
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+        }
+
+        .contact-info:hover::before {
+            opacity: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            transition: transform var(--transition-medium);
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+        }
+
+        .contact-item i {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gold);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all var(--transition-medium);
+        }
+
+        .contact-item:hover i {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Live Clock */
+        .live-clock {
+            background: var(--current-bg-tertiary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            text-align: center;
+            border: 2px solid var(--primary-gold);
+        }
+
+        .clock-time {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            font-family: 'Courier New', monospace;
+        }
+
+        .clock-status {
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        .status-open {
+            color: #10B981;
+        }
+
+        .status-closed {
+            color: #EF4444;
+        }
+
+        /* Enhanced Contact Form */
+        .contact-form {
+            background: var(--current-bg-secondary);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--current-text);
+            transition: color var(--transition-medium);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--current-border);
+            border-radius: 10px;
+            background: var(--current-bg);
+            color: var(--current-text);
+            font-size: 1rem;
+            transition: all var(--transition-medium);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .form-group input:focus + label,
+        .form-group textarea:focus + label,
+        .form-group select:focus + label {
+            color: var(--primary-gold);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary-gold);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transition: all var(--transition-medium);
+            transform: translate(-50%, -50%);
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-gold-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Enhanced Footer */
+        footer {
+            background: var(--current-bg-secondary);
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--current-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gold);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transition: all var(--transition-medium);
+            transform: translate(-50%, -50%);
+        }
+
+        .social-link:hover::before {
+            width: 100px;
+            height: 100px;
+        }
+
+        .social-link:hover {
+            background: var(--primary-gold-dark);
+            transform: translateY(-5px) rotate(360deg);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Enhanced Floating Action Buttons */
+        .floating-actions {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all var(--transition-medium);
+            box-shadow: var(--shadow-medium);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transition: all var(--transition-medium);
+            transform: translate(-50%, -50%);
+        }
+
+        .floating-btn:hover::before {
+            width: 120px;
+            height: 120px;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: scale(1.2) rotate(15deg);
+        }
+
+        .chatbot-btn {
+            background: var(--primary-gold);
+            color: white;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .chatbot-btn:hover {
+            background: var(--primary-gold-dark);
+            transform: scale(1.2) rotate(-15deg);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Enhanced Chatbot Modal */
+        .chatbot-modal {
+            position: fixed;
+            bottom: 140px;
+            right: 2rem;
+            width: 350px;
+            height: 500px;
+            background: var(--current-bg-secondary);
+            border-radius: 20px;
+            box-shadow: var(--shadow-heavy);
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--current-border);
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chatbot-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmerHeader 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmerHeader {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform var(--transition-medium);
+            z-index: 2;
+        }
+
+        .chatbot-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            animation: messageSlide 0.3s ease-out;
+            position: relative;
+        }
+
+        @keyframes messageSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            background: var(--primary-gold);
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user {
+            background: var(--current-bg-tertiary);
+            color: var(--current-text);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            background: var(--primary-gold);
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: typingDot 1.4s ease-in-out infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+            30% { opacity: 1; transform: scale(1); }
+        }
+
+        .chatbot-input {
+            padding: 1rem;
+            border-top: 1px solid var(--current-border);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid var(--current-border);
+            border-radius: 20px;
+            background: var(--current-bg);
+            color: var(--current-text);
+            transition: all var(--transition-medium);
+        }
+
+        .chatbot-input input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        .chatbot-send {
+            background: var(--primary-gold);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-medium);
+        }
+
+        .chatbot-send:hover {
+            background: var(--primary-gold-dark);
+            transform: scale(1.1);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .quick-action {
+            background: var(--current-bg-tertiary);
+            color: var(--current-text);
+            border: 1px solid var(--current-border);
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .quick-action:hover {
+            background: var(--primary-gold);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: none;
+            animation: successSlide 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .success-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: successShimmer 2s ease-in-out;
+        }
+
+        @keyframes successSlide {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes successShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* General Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-actions {
+                bottom: 1rem;
+                right: 1rem;
+            }
+            
+            .chatbot-modal {
+                width: calc(100vw - 2rem);
+                right: 1rem;
+                bottom: 120px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 4rem 1rem;
+            }
+            
+            .hero-content {
+                padding: 0 1rem;
+            }
+            
+            .floating-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="header-content">
+            <a href="#" class="logo">Bella Vista</a>
+            <nav class="nav-menu">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#menu">Menu</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="mode-toggle" id="modeToggle">
+                <i class="fas fa-sun"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="floating-shapes">
+            <div class="shape" style="width: 100px; height: 100px; background: var(--primary-gold); border-radius: 50%;"></div>
+            <div class="shape" style="width: 80px; height: 80px; background: var(--accent-burgundy); transform: rotate(45deg);"></div>
+            <div class="shape" style="width: 60px; height: 60px; background: var(--primary-gold-light); border-radius: 50%;"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Bella Vista</h1>
+            <p class="hero-subtitle">Fine Dining Experience</p>
+            <p>Where culinary artistry meets exceptional service. Experience the perfect blend of traditional flavors and modern sophistication in an atmosphere designed for memorable moments.</p>
+            <div class="cta-buttons">
+                <a href="#menu" class="cta-button">
+                    <i class="fas fa-utensils"></i>
+                    View Menu
+                </a>
+                <a href="#contact" class="cta-button secondary">
+                    <i class="fas fa-calendar-alt"></i>
+                    Reserve Table
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header">
+            <h2 class="section-title">Our Story</h2>
+            <p class="section-subtitle">A legacy of culinary excellence spanning over two decades</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Founded in 2001, Bella Vista has been a cornerstone of fine dining in the heart of the city. Our journey began with a simple vision: to create an extraordinary culinary experience that celebrates both tradition and innovation.</p>
+                <p>Our award-winning chefs combine time-honored techniques with contemporary flair, sourcing only the finest local and seasonal ingredients. Every dish tells a story, crafted with passion and presented with artistry.</p>
+                <p>From intimate dinners to grand celebrations, Bella Vista provides the perfect setting for life's most precious moments. Join us and become part of our continuing story of culinary excellence.</p>
+            </div>
+            <div class="about-image">
+                <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'><rect fill='%23D4AF37' width='600' height='400'/><circle cx='300' cy='200' r='100' fill='%238B0000' opacity='0.3'/><rect x='0' y='0' width='600' height='400' fill='url(%23pattern)'/><defs><pattern id='pattern' patternUnits='userSpaceOnUse' width='40' height='40'><circle cx='20' cy='20' r='2' fill='white' opacity='0.1'/></pattern></defs><text x='300' y='200' text-anchor='middle' dy='0.3em' font-family='serif' font-size='48' fill='white' opacity='0.8'>🍽️</text></svg>" alt="Restaurant Interior">
+            </div>
+        </div>
+        
+        <!-- Animated Stats Section -->
+        <div class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="25">0</span>
+                    <span class="stat-label">Years of Excellence</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="50000">0</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="15">0</span>
+                    <span class="stat-label">Award Winning Dishes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="5">0</span>
+                    <span class="stat-label">Star Rating</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="section-header">
+            <h2 class="section-title">Our Exquisite Menu</h2>
+            <p class="section-subtitle">Carefully crafted dishes that celebrate flavor and artistry</p>
+        </div>
+        
+        <div class="menu-categories">
+            <button class="menu-category-button active" data-category="all"><span>All</span></button>
+            <button class="menu-category-button" data-category="appetizers"><span>Appetizers</span></button>
+            <button class="menu-category-button" data-category="mains"><span>Main Courses</span></button>
+            <button class="menu-category-button" data-category="desserts"><span>Desserts</span></button>
+            <button class="menu-category-button" data-category="beverages"><span>Beverages</span></button>
+        </div>
+
+        <div class="menu-grid" id="menuGrid">
+            <!-- Appetizers -->
+            <div class="menu-item" data-category="appetizers">
+                <div class="menu-item-image">🦪</div>
+                <div class="menu-item-content">
+                    <h3>Fresh Oysters Rockefeller</h3>
+                    <div class="menu-item-price">$18.00</div>
+                    <p>Fresh Blue Point oysters topped with creamed spinach, herbs, and a hint of Pernod, baked to perfection.</p>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="appetizers">
+                <div class="menu-item-image">🥗</div>
+                <div class="menu-item-content">
+                    <h3>Burrata Caprese</h3>
+                    <div class="menu-item-price">$16.00</div>
+                    <p>Creamy burrata cheese with heirloom tomatoes, fresh basil, and aged balsamic reduction.</p>
+                </div>
+            </div>
+
+            <!-- Main Courses -->
+            <div class="menu-item" data-category="mains">
+                <div class="menu-item-image">🥩</div>
+                <div class="menu-item-content">
+                    <h3>Wagyu Beef Tenderloin</h3>
+                    <div class="menu-item-price">$65.00</div>
+                    <p>Premium Wagyu beef tenderloin with truffle mashed potatoes, seasonal vegetables, and red wine reduction.</p>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="mains">
+                <div class="menu-item-image">🐟</div>
+                <div class="menu-item-content">
+                    <h3>Pan-Seared Halibut</h3>
+                    <div class="menu-item-price">$42.00</div>
+                    <p>Fresh Atlantic halibut with lemon risotto, grilled asparagus, and champagne butter sauce.</p>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="mains">
+                <div class="menu-item-image">🦆</div>
+                <div class="menu-item-content">
+                    <h3>Duck Confit</h3>
+                    <div class="menu-item-price">$38.00</div>
+                    <p>Slow-cooked duck leg with cherry gastrique, roasted fingerling potatoes, and wilted spinach.</p>
+                </div>
+            </div>
+
+            <!-- Desserts -->
+            <div class="menu-item" data-category="desserts">
+                <div class="menu-item-image">🍰</div>
+                <div class="menu-item-content">
+                    <h3>Chocolate Soufflé</h3>
+                    <div class="menu-item-price">$14.00</div>
+                    <p>Rich dark chocolate soufflé with vanilla bean ice cream and raspberry coulis.</p>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="desserts">
+                <div class="menu-item-image">🍮</div>
+                <div class="menu-item-content">
+                    <h3>Crème Brûlée</h3>
+                    <div class="menu-item-price">$12.00</div>
+                    <p>Classic vanilla bean crème brûlée with caramelized sugar and fresh berries.</p>
+                </div>
+            </div>
+
+            <!-- Beverages -->
+            <div class="menu-item" data-category="beverages">
+                <div class="menu-item-image">🍷</div>
+                <div class="menu-item-content">
+                    <h3>Wine Selection</h3>
+                    <div class="menu-item-price">$12-85</div>
+                    <p>Curated selection of premium wines from renowned vineyards around the world.</p>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="beverages">
+                <div class="menu-item-image">🍸</div>
+                <div class="menu-item-content">
+                    <h3>Signature Cocktails</h3>
+                    <div class="menu-item-price">$15-22</div>
+                    <p>Handcrafted cocktails featuring premium spirits and house-made mixers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-header">
+            <h2 class="section-title">What Our Guests Say</h2>
+            <p class="section-subtitle">Experiences that speak for themselves</p>
+        </div>
+        <div class="testimonials-container">
+            <div class="testimonials-track">
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"An absolutely incredible dining experience. The attention to detail and quality of food is unmatched. This is fine dining at its best!"</p>
+                    <p class="testimonial-author">- Sarah Johnson</p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Perfect for our anniversary dinner. The ambiance was romantic, the service impeccable, and every dish was a work of art."</p>
+                    <p class="testimonial-author">- Michael Chen</p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Bella Vista never disappoints. The wine selection is outstanding and the chef's tasting menu is an unforgettable journey."</p>
+                    <p class="testimonial-author">- Emma Rodriguez</p>
+                </div>
+                <!-- Duplicate testimonials for seamless loop -->
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"An absolutely incredible dining experience. The attention to detail and quality of food is unmatched. This is fine dining at its best!"</p>
+                    <p class="testimonial-author">- Sarah Johnson</p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Perfect for our anniversary dinner. The ambiance was romantic, the service impeccable, and every dish was a work of art."</p>
+                    <p class="testimonial-author">- Michael Chen</p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Bella Vista never disappoints. The wine selection is outstanding and the chef's tasting menu is an unforgettable journey."</p>
+                    <p class="testimonial-author">- Emma Rodriguez</p>
+                </div>
+            </div>
+            <div class="testimonials-progress">
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header">
+            <h2 class="section-title">Reserve Your Table</h2>
+            <p class="section-subtitle">We look forward to serving you an exceptional dining experience</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3 style="margin-bottom: 2rem; color: var(--primary-gold);">Get in Touch</h3>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Address</strong><br>
+                        anywhere<br>
+                        cairo, Egypt
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>Phone</strong><br>
+                        +20 1119576574
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Email</strong><br>
+                        karimhamada221@gmail.com
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <strong>Hours</strong><br>
+                        Mon-Thu: 5:00 PM - 10:00 PM<br>
+                        Fri-Sat: 5:00 PM - 11:00 PM<br>
+                        Sun: 4:00 PM - 9:00 PM
+                    </div>
+                </div>
+                
+                <!-- Live Clock -->
+                <div class="live-clock">
+                    <div class="clock-time" id="currentTime">00:00:00</div>
+                    <div class="clock-status" id="restaurantStatus">Checking status...</div>
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="date">Preferred Date</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Preferred Time</label>
+                    <select id="time" name="time" required>
+                        <option value="">Select Time</option>
+                        <option value="17:00">5:00 PM</option>
+                        <option value="17:30">5:30 PM</option>
+                        <option value="18:00">6:00 PM</option>
+                        <option value="18:30">6:30 PM</option>
+                        <option value="19:00">7:00 PM</option>
+                        <option value="19:30">7:30 PM</option>
+                        <option value="20:00">8:00 PM</option>
+                        <option value="20:30">8:30 PM</option>
+                        <option value="21:00">9:00 PM</option>
+                        <option value="21:30">9:30 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <select id="guests" name="guests" required>
+                        <option value="">Select Guests</option>
+                        <option value="1">1 Guest</option>
+                        <option value="2">2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                        <option value="5">5 Guests</option>
+                        <option value="6">6 Guests</option>
+                        <option value="7">7 Guests</option>
+                        <option value="8">8 Guests</option>
+                        <option value="9">9 Guests</option>
+                        <option value="10">10+ Guests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Special Requests</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Any dietary restrictions, special occasions, or other requests..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-calendar-check"></i>
+                    Make Reservation
+                </button>
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    Thank you! Your reservation request has been submitted. We'll contact you shortly to confirm.
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-social">
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-yelp"></i></a>
+            </div>
+            <p>&copy; 2025 Bella Vista Restaurant. All rights reserved. | Crafted with passion for culinary excellence.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-actions">
+        <a href="#" class="floating-btn whatsapp-btn" title="WhatsApp Us">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <button class="floating-btn chatbot-btn" id="chatbotToggle" title="Chat with us">
+            <i class="fas fa-comments"></i>
+        </button>
+    </div>
+
+    <!-- Enhanced Chatbot Modal -->
+    <div class="chatbot-modal" id="chatbotModal">
+        <div class="chatbot-header">
+            <div>
+                <strong>Bella Vista Assistant</strong>
+                <div style="font-size: 0.8rem; opacity: 0.8;">How can I help you today?</div>
+            </div>
+            <button class="chatbot-close" id="chatbotClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="message bot">
+                Welcome to Bella Vista! I'm here to help you with reservations, menu questions, or any other inquiries. How can I assist you today?
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            </div>
+            <div class="quick-actions">
+                <button class="quick-action" data-message="I'd like to make a reservation">Make Reservation</button>
+                <button class="quick-action" data-message="What are your hours?">Hours</button>
+                <button class="quick-action" data-message="Do you have vegetarian options?">Vegetarian Menu</button>
+                <button class="quick-action" data-message="What's your dress code?">Dress Code</button>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbotInput" placeholder="Type your message...">
+            <button class="chatbot-send" id="chatbotSend">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+        const modeToggle = document.getElementById('modeToggle');
+        const modeToggleIcon = modeToggle.querySelector('i');
+        const body = document.body;
+        const header = document.getElementById('header');
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+        const submitBtn = document.getElementById('submitBtn');
+        const menuCategoryButtons = document.querySelectorAll('.menu-category-button');
+        const menuItems = document.querySelectorAll('.menu-item');
+        const menuGrid = document.getElementById('menuGrid');
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotModal = document.getElementById('chatbotModal');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const quickActions = document.querySelectorAll('.quick-action');
+        const currentTimeElement = document.getElementById('currentTime');
+        const restaurantStatusElement = document.getElementById('restaurantStatus');
+
+        let isDarkMode = true;
+        let lastScrollY = window.scrollY;
+        const testimonials = document.querySelectorAll('.testimonial');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+
+        // Initialize particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Enhanced cursor functionality
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.classList.add('click');
+            cursorDot.style.transform = 'translate(-50%, -50%) scale(2)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.classList.remove('click');
+            cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        // Enhanced cursor hover effects
+        document.querySelectorAll('a, button, input, textarea, select, .menu-item, .mode-toggle, .floating-btn, .testimonial-dot, .quick-action').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+                cursorDot.style.transform = 'translate(-50%, -50%) scale(0)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+                cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+
+        // Dynamic header behavior
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+
+            if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                header.classList.add('hidden');
+            } else {
+                header.classList.remove('hidden');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+
+        // Dark/Light mode toggle with enhanced animation
+        modeToggle.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            const root = document.documentElement;
+            
+            if (isDarkMode) {
+                root.style.setProperty('--current-bg', 'var(--dark-bg)');
+                root.style.setProperty('--current-bg-secondary', 'var(--dark-bg-secondary)');
+                root.style.setProperty('--current-bg-tertiary', 'var(--dark-bg-tertiary)');
+                root.style.setProperty('--current-text', 'var(--dark-text)');
+                root.style.setProperty('--current-text-secondary', 'var(--dark-text-secondary)');
+                root.style.setProperty('--current-border', 'var(--dark-border)');
+                modeToggleIcon.className = 'fas fa-sun';
+            } else {
+                root.style.setProperty('--current-bg', 'var(--light-bg)');
+                root.style.setProperty('--current-bg-secondary', 'var(--light-bg-secondary)');
+                root.style.setProperty('--current-bg-tertiary', 'var(--light-bg-tertiary)');
+                root.style.setProperty('--current-text', 'var(--light-text)');
+                root.style.setProperty('--current-text-secondary', 'var(--light-text-secondary)');
+                root.style.setProperty('--current-border', 'var(--light-border)');
+                modeToggleIcon.className = 'fas fa-moon';
+            }
+        });
+
+        // Animated counter for statistics
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                
+                element.textContent = target > 1000 ? 
+                    Math.floor(current).toLocaleString() + (target >= 50000 ? 'K+' : '+') :
+                    Math.floor(current) + (target === 5 ? '★' : '+');
+                
+                element.classList.add('counting');
+                setTimeout(() => element.classList.remove('counting'), 100);
+            }, 16);
+        }
+
+        // Enhanced menu filtering with staggered animations
+        menuCategoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const category = button.dataset.category;
+                
+                // Update active button
+                menuCategoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Filter menu items with staggered animation
+                menuItems.forEach((item, index) => {
+                    item.classList.remove('animate');
+                    
+                    if (category === 'all' || item.dataset.category === category) {
+                        setTimeout(() => {
+                            item.style.display = 'block';
+                            setTimeout(() => item.classList.add('animate'), 50);
+                        }, index * 100);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Remove the old testimonial carousel code and replace with:
+        // Testimonials are now handled by CSS animations
+        // The progress dots animate automatically to show current testimonial
+
+        // You can remove these lines from the JavaScript:
+        // - let currentTestimonial = 0;
+        // - const testimonials = document.querySelectorAll('.testimonial');
+        // - const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        // - showTestimonial function
+        // - testimonialDots event listeners
+        // - setInterval for testimonials
+
+        // Live clock and restaurant status
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            currentTimeElement.textContent = timeString;
+
+            const hour = now.getHours();
+            const day = now.getDay();
+            
+            let isOpen = false;
+            if (day >= 1 && day <= 4) { // Monday to Thursday
+                isOpen = hour >= 17 && hour < 22;
+            } else if (day === 5 || day === 6) { // Friday to Saturday
+                isOpen = hour >= 17 && hour < 23;
+            } else if (day === 0) { // Sunday
+                isOpen = hour >= 16 && hour < 21;
+            }
+
+            restaurantStatusElement.textContent = isOpen ? 'Currently Open' : 'Currently Closed';
+            restaurantStatusElement.className = isOpen ? 'status-open' : 'status-closed';
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Enhanced contact form submission
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="loading"></div> Processing...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                const formData = new FormData(contactForm);
+                console.log('Reservation submitted:', Object.fromEntries(formData));
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                
+                // Reset form and button
+                setTimeout(() => {
+                    contactForm.reset();
+                    successMessage.style.display = 'none';
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 5000);
+            }, 2000);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced chatbot functionality
+        const chatbotResponses = {
+            'reservation': "I'd be happy to help you make a reservation! You can use our reservation form on this page, call us at (555) 123-4567, or click the WhatsApp button to message us directly. What date and time were you thinking?",
+            'hours': "We're open Monday-Thursday 5:00 PM - 10:00 PM, Friday-Saturday 5:00 PM - 11:00 PM, and Sunday 4:00 PM - 9:00 PM. You can see our current status above!",
+            'vegetarian': "We have several delicious vegetarian options including our famous Burrata Caprese, seasonal vegetable risotto, and plant-based entrees. Our chef can also accommodate special dietary needs with advance notice.",
+            'dress code': "We maintain a smart casual to business casual dress code. We want you to feel comfortable while maintaining the elegant atmosphere of our restaurant. No shorts, flip-flops, or athletic wear please.",
+            'location': "We're located at 123 Gourmet Street in the Downtown District. There's valet parking available and we're easily accessible by public transportation. Would you like directions?",
+            'menu': "Our menu features contemporary American cuisine with international influences. We offer appetizers, main courses, desserts, and an extensive wine list. You can view our full menu above! Is there a particular dish you're curious about?",
+            'price': "Our appetizers range from $12-18, main courses from $28-65, and desserts from $12-16. We also offer a chef's tasting menu for $95 per person. Would you like more details about any specific items?",
+            'wine': "We have an award-winning wine selection featuring bottles from $12-85. Our sommelier can recommend perfect pairings for your meal. We also offer wine flights and by-the-glass options.",
+            'default': "Thank you for your question! For specific inquiries, please call us at (555) 123-4567 or use our WhatsApp button. Our staff will be happy to assist you personally. Is there anything else I can help you with?"
+        };
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            messageDiv.textContent = message;
+            chatbotMessages.insertBefore(messageDiv, typingIndicator);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'block';
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+
+        function getBotResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            
+            if (message.includes('reservation') || message.includes('book') || message.includes('table')) {
+                return chatbotResponses.reservation;
+            } else if (message.includes('hours') || message.includes('open') || message.includes('time')) {
+                return chatbotResponses.hours;
+            } else if (message.includes('vegetarian') || message.includes('vegan') || message.includes('dietary')) {
+                return chatbotResponses.vegetarian;
+            } else if (message.includes('dress') || message.includes('attire') || message.includes('code')) {
+                return chatbotResponses['dress code'];
+            } else if (message.includes('location') || message.includes('address') || message.includes('where')) {
+                return chatbotResponses.location;
+            } else if (message.includes('menu') || message.includes('food') || message.includes('dish')) {
+                return chatbotResponses.menu;
+            } else if (message.includes('price') || message.includes('cost') || message.includes('expensive')) {
+                return chatbotResponses.price;
+            } else if (message.includes('wine') || message.includes('drink') || message.includes('alcohol')) {
+                return chatbotResponses.wine;
+            } else {
+                return chatbotResponses.default;
+            }
+        }
+
+        function sendMessage() {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatbotInput.value = '';
+                
+                showTypingIndicator();
+                
+                // Simulate realistic typing delay
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    const response = getBotResponse(message);
+                    addMessage(response);
+                }, 1500 + Math.random() * 1000);
+            }
+        }
+
+        // Chatbot event listeners
+        chatbotToggle.addEventListener('click', () => {
+            const isVisible = chatbotModal.style.display === 'flex';
+            chatbotModal.style.display = isVisible ? 'none' : 'flex';
+        });
+
+        chatbotClose.addEventListener('click', () => {
+            chatbotModal.style.display = 'none';
+        });
+
+        chatbotSend.addEventListener('click', sendMessage);
+
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Quick action buttons
+        quickActions.forEach(button => {
+            button.addEventListener('click', () => {
+                const message = button.dataset.message;
+                addMessage(message, true);
+                
+                showTypingIndicator();
+                
+                setTimeout(() => {
+                    hideTypingIndicator();
+                    const response = getBotResponse(message);
+                    addMessage(response);
+                }, 1500);
+            });
+        });
+
+        // Close chatbot when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!chatbotModal.contains(e.target) && !chatbotToggle.contains(e.target)) {
+                chatbotModal.style.display = 'none';
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const element = entry.target;
+                    
+                    // Section titles
+                    if (element.classList.contains('section-title')) {
+                        element.classList.add('animate');
+                    }
+                    
+                    // Section subtitles
+                    if (element.classList.contains('section-subtitle')) {
+                        setTimeout(() => element.classList.add('animate'), 300);
+                    }
+                    
+                    // About text paragraphs
+                    if (element.classList.contains('about-text')) {
+                        const paragraphs = element.querySelectorAll('p');
+                        paragraphs.forEach((p, index) => {
+                            setTimeout(() => p.classList.add('animate'), index * 200);
+                        });
+                    }
+                    
+                    // About image
+                    if (element.classList.contains('about-image')) {
+                        setTimeout(() => element.classList.add('animate'), 600);
+                    }
+                    
+                    // Menu items
+                    if (element.classList.contains('menu-item')) {
+                        setTimeout(() => element.classList.add('animate'), Math.random() * 500);
+                    }
+                    
+                    // Stats animation
+                    if (element.classList.contains('stat-number')) {
+                        const target = parseInt(element.dataset.target);
+                        animateCounter(element, target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animations
+        document.querySelectorAll('.section-title, .section-subtitle, .about-text, .about-image, .menu-item, .stat-number').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Set minimum date for reservation to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            updateClock();
+            
+            // Trigger initial menu animation
+            setTimeout(() => {
+                menuItems.forEach((item, index) => {
+                    setTimeout(() => item.classList.add('animate'), index * 100);
+                });
+            }, 1000);
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add dynamic background color changes based on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const hue = Math.floor(scrollPercent * 60); // Changes from 0 to 60 degrees
+            document.documentElement.style.setProperty('--scroll-hue', hue);
+        });
+    </script>
+</body>
+</html>
